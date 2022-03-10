@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
+    <h2>{{ $store.state.name }}</h2>
     <router-link to="/">Home </router-link> |
-    <router-link to="/about"> Aaaaabout </router-link>
+    <router-link to="/about"> About </router-link>
   </div>
   <router-view />
 </template>
