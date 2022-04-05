@@ -364,3 +364,13 @@ export default defineComponent({
 
 3. types.ts
    统一放置每个模块用到的接口
+
+https://blog.csdn.net/weixin_44871643/article/details/105204537
+
+https://ckang1229.gitee.io/vue-markdown-editor/zh/examples/base-editor.html#%E5%BC%95%E5%85%A5
+npm i @kangc/v-md-editor@next -S
+
+https://www.npmjs.com/package/@kangc/v-md-editor
+
+v-md-editor 使用
+https://ckang1229.gitee.io/vue-markdown-editor/zh/api.html#text

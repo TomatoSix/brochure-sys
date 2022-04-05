@@ -8,3 +8,7 @@ declare module '*.vue' {
 declare let $store: any
 declare let VUE_APP_BASE_URL: string
 declare let VUE_APP_BASE_NAME: string
+declare module '@kangc/v-md-editor/lib/theme/vuepress.js';
+declare module '@kangc/v-md-editor';
+declare module '@kangc/v-md-editor/lib/preview'
+declare module 'prismjs';

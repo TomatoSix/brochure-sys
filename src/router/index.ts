@@ -19,9 +19,136 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/main',
+    redirect: '/main/discover',
     name: 'main',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/main/main.vue')
+      import(/* webpackChunkName: "about" */ '../views/main/main.vue'),
+    children: [
+      {
+        path: 'discover',
+        name: 'discover',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/discover/discover.vue'
+          )
+      },
+      {
+        path: 'brochure',
+        name: 'brochure',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/brochure/brochure.vue'
+          ),
+        children: []
+      },
+      {
+        path: 'brochureDetail/:id',
+        name: 'brochureDetail',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/brochure/component/brochure-detail.vue'
+          )
+      },
+      {
+        path: 'activity',
+        name: 'activity',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/activity/activity.vue'
+          )
+      },
+      {
+        path: 'homepage',
+        name: 'homepage',
+        redirect: '/main/homepage/homeDynamic',
+
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/homepage/homepage.vue'
+          ),
+        children: [
+          {
+            path: 'homeDynamic',
+            name: 'homeDynamic',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/homepage/components/home-dynamic.vue'
+              )
+          },
+          {
+            path: 'homeArticle',
+            name: 'homeArticle',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/homepage/components/home-article.vue'
+              )
+          },
+          {
+            path: 'homeBrochure',
+            name: 'homeBrochure',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/homepage/components/home-brochure.vue'
+              )
+          }
+        ]
+      },
+      {
+        path: 'setting',
+        name: 'setting',
+        redirect: '/main/setting/personalData',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/setting/setting.vue'
+          ),
+        children: [
+          {
+            path: 'personalData',
+            name: 'personalData',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/setting/components/personal-data.vue'
+              )
+          },
+          {
+            path: 'resume',
+            name: 'resume',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/setting/components/resume.vue'
+              )
+          },
+          {
+            path: 'accountSetting',
+            name: 'accountSetting',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/setting/components/account-setting.vue'
+              )
+          }
+        ]
+      },
+      {
+        path: 'articleDetail/:id',
+        name: 'articleDetail',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/discover/article-detail.vue'
+          )
+      }
+    ]
+  },
+  {
+    path: '/editor',
+    name: 'editor',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/editor/editor.vue')
+  },
+  {
+    path: '/show',
+    name: 'show',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/editor/show.vue')
   }
 ]
 
