@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'discover',
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/discover/discover.vue'
+            /* webpackChunkName: "about" */ '../views/main/discover/discover.vue'
           )
       },
       {
@@ -37,24 +37,55 @@ const routes: Array<RouteRecordRaw> = [
         name: 'brochure',
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/brochure/brochure.vue'
+            /* webpackChunkName: "about" */ '../views/main/brochure/brochure.vue'
           ),
         children: []
       },
       {
         path: 'brochureDetail/:id',
         name: 'brochureDetail',
+        redirect: '/main/brochureDetail/:id/introduce',
+
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/brochure/component/brochure-detail.vue'
-          )
+            /* webpackChunkName: "about" */ '../views/main/brochure/component/brochure-detail.vue'
+          ),
+        children: [
+          {
+            path: 'introduce',
+            name: 'introduce',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/brochure/component/coms/introduce.vue'
+              ),
+            children: []
+          },
+          {
+            path: 'catalogue',
+            name: 'catalogue',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/brochure/component/coms/catalogue.vue'
+              ),
+            children: []
+          },
+          {
+            path: 'comment',
+            name: 'comment',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/brochure/component/coms/comment.vue'
+              ),
+            children: []
+          }
+        ]
       },
       {
         path: 'activity',
         name: 'activity',
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/activity/activity.vue'
+            /* webpackChunkName: "about" */ '../views/main/activity/activity.vue'
           )
       },
       {
@@ -64,7 +95,7 @@ const routes: Array<RouteRecordRaw> = [
 
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/homepage/homepage.vue'
+            /* webpackChunkName: "about" */ '../views/main/homepage/homepage.vue'
           ),
         children: [
           {
@@ -72,7 +103,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'homeDynamic',
             component: () =>
               import(
-                /* webpackChunkName: "about" */ '../views/homepage/components/home-dynamic.vue'
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-dynamic.vue'
               )
           },
           {
@@ -80,7 +111,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'homeArticle',
             component: () =>
               import(
-                /* webpackChunkName: "about" */ '../views/homepage/components/home-article.vue'
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-article.vue'
               )
           },
           {
@@ -88,7 +119,31 @@ const routes: Array<RouteRecordRaw> = [
             name: 'homeBrochure',
             component: () =>
               import(
-                /* webpackChunkName: "about" */ '../views/homepage/components/home-brochure.vue'
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-brochure.vue'
+              )
+          },
+          {
+            path: 'homeCollection',
+            name: 'homeCollection',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-collection.vue'
+              )
+          },
+          {
+            path: 'homeLike',
+            name: 'homeLike',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-like.vue'
+              )
+          },
+          {
+            path: 'homeAttention',
+            name: 'homeAttention',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-attention.vue'
               )
           }
         ]
@@ -99,7 +154,7 @@ const routes: Array<RouteRecordRaw> = [
         redirect: '/main/setting/personalData',
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/setting/setting.vue'
+            /* webpackChunkName: "about" */ '../views/main/setting/setting.vue'
           ),
         children: [
           {
@@ -107,7 +162,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'personalData',
             component: () =>
               import(
-                /* webpackChunkName: "about" */ '../views/setting/components/personal-data.vue'
+                /* webpackChunkName: "about" */ '../views/main/setting/components/personal-data.vue'
               )
           },
           {
@@ -115,7 +170,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'resume',
             component: () =>
               import(
-                /* webpackChunkName: "about" */ '../views/setting/components/resume.vue'
+                /* webpackChunkName: "about" */ '../views/main/setting/components/resume.vue'
               )
           },
           {
@@ -123,7 +178,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'accountSetting',
             component: () =>
               import(
-                /* webpackChunkName: "about" */ '../views/setting/components/account-setting.vue'
+                /* webpackChunkName: "about" */ '../views/main/setting/components/account-setting.vue'
               )
           }
         ]
@@ -133,7 +188,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'articleDetail',
         component: () =>
           import(
-            /* webpackChunkName: "about" */ '../views/discover/article-detail.vue'
+            /* webpackChunkName: "about" */ '../views/main/discover/article-detail.vue'
           )
       }
     ]
@@ -142,13 +197,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/editor',
     name: 'editor',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/editor/editor.vue')
+      import(/* webpackChunkName: "about" */ '../views/main/editor/editor.vue')
   },
   {
     path: '/show',
     name: 'show',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/editor/show.vue')
+      import(/* webpackChunkName: "about" */ '../views/main/editor/show.vue')
   }
 ]
 
