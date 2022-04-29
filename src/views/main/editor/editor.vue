@@ -10,21 +10,25 @@
       </div>
     </div>
     <v-md-editor v-model="text" height="640px"></v-md-editor>
-    <!-- <div class="show">
-      <v-md-preview :text="text"></v-md-preview>
-    </div> -->
+    <div class="show">
+      <v-md-preview :text="showText"></v-md-preview>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { userSavePaper, getPaperInfoById } from '@/service/article/article'
+import { useStore } from 'vuex'
 export default defineComponent({
   setup() {
     const text = ref('')
+    const showText = ref('')
     const title = ref('')
+    const store = useStore()
     const save = function () {
-      console.log(text)
+      console.log(text, 'text')
       ElMessageBox.confirm('是否保存到草稿箱?', '', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
@@ -32,11 +36,25 @@ export default defineComponent({
       })
         .then(() => {
           // 保存到后端
+          console.log(store.state.login.userInfo, '111')
+
+          let params = { user_id: 1, content: text.value, title: title.value }
+          userSavePaper(params).then((res) => {
+            console.log(res)
+          })
           ElMessage({
             type: 'success',
             message: '保存成功'
           })
           // 直接跳转到草稿箱页面
+          getPaperInfoById(4).then((res: any) => {
+            console.log(res, '0000')
+
+            showText.value = res[0].content
+            console.log(res[0].content, 'content')
+
+            // showText.value = '# 123\n1. 222'
+          })
         })
         .catch(() => {
           ElMessage({
@@ -68,6 +86,7 @@ export default defineComponent({
     }
     return {
       text,
+      showText,
       title,
       save,
       emit

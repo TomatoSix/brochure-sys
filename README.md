@@ -374,3 +374,8 @@ https://www.npmjs.com/package/@kangc/v-md-editor
 
 v-md-editor 使用
 https://ckang1229.gitee.io/vue-markdown-editor/zh/api.html#text
+
+# 使用 store
+
+import { useStore } from 'vuex'
+const store = useStore()

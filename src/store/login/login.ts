@@ -55,7 +55,7 @@ const loginModule: Module<ILoginState, IRootState> = {
         // 1. 实现登录逻辑
 
         const loginResult = await accountLoginRequest(payload)
-        console.log(loginResult, '111')
+        console.log(loginResult, '4444')
 
         // 将token放入vuex中
         const { id, token } = loginResult.data
@@ -64,10 +64,10 @@ const loginModule: Module<ILoginState, IRootState> = {
         localCache.setCache('token', token)
 
         // 2. 请求用户信息数据
-        // const userInfoResult = await requestUserInfoById(id)
-        // const userInfo = userInfoResult.data
-        // commit('changeUerInfo', userInfo)
-        // localCache.setCache('userInfo', userInfo)
+        const userInfoResult = await requestUserInfoById(id)
+        const userInfo = userInfoResult.data
+        commit('changeUerInfo', userInfo)
+        localCache.setCache('userInfo', userInfo)
 
         // 3. 请求用户菜单
         // const userMenusResult = await requestUserMenuByRoleId(userInfo.role.id)

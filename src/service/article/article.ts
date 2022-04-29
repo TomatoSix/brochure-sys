@@ -1,44 +1,40 @@
 import hyRequest from '../index'
-import { ElMessage, ElForm } from 'element-plus'
 
-import { IAccount, IDataType, ILoginResult } from './types'
+import { IDataType, IPaper } from './types'
 
+enum UserArticle {
+  SavaPaper = 'article/savePaper',
+  ArticleInfo = 'article/getArticleById/'
+}
 enum LoginAPI {
   // 用户注册
   UserRegister = '/users/register',
   // 用户登录
   AccountLogin = '/login',
   // 获取用户信息 users/1
-  LoginUserInfo = '/users/getUserInfo/',
+  LoginUserInfo = '/users/',
   // 获取用户菜单 role/1/menu
-  UserMenus = '/role/'
-}
-/**
- * @desc 用户注册接口
- * @date 2022-03-16
- * @param {any} account:IAccount
- * @returns {any}
- */
-export function userRegisterRequest(account: IAccount) {
-  return hyRequest.post<IDataType>({
-    url: LoginAPI.UserRegister,
-    data: account
-  })
+  UserMenus = '/role/',
+
+  SavaPaper = 'article/savePaper'
 }
 
 /**
- * @desc 登录请求
- * @date 2022-03-15
- * @param account
- * name:账号, password: 密码
+ * @desc 上传文章
+ * @date 2022-04-26
+ * @param {any} paper:IPaper
  * @returns {any}
  */
-export function accountLoginRequest(account: IAccount) {
-  // <IDataType<ILoginResult>>就是返回的数据类型，也可以不写<ILoginResult>
-  // 因为某些数据返回实在过于复杂, 已设置T默认为any类型
-  return hyRequest.post<IDataType<ILoginResult>>({
-    url: LoginAPI.AccountLogin,
-    data: account
+export function userSavePaper(paper: IPaper) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.SavaPaper,
+    data: paper
+  })
+}
+
+export function getPaperInfoById(id: number) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.ArticleInfo + id
   })
 }
 
@@ -50,7 +46,7 @@ export function accountLoginRequest(account: IAccount) {
  * @returns {any}
  */
 export function requestUserInfoById(id: number) {
-  return hyRequest.post<IDataType>({
+  return hyRequest.get<IDataType>({
     url: LoginAPI.LoginUserInfo + id,
     showLoading: false
   })
