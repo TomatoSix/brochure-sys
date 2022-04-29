@@ -4,19 +4,9 @@ import { IDataType, IPaper } from './types'
 
 enum UserArticle {
   SavaPaper = 'article/savePaper',
-  ArticleInfo = 'article/getArticleById/'
-}
-enum LoginAPI {
-  // 用户注册
-  UserRegister = '/users/register',
-  // 用户登录
-  AccountLogin = '/login',
-  // 获取用户信息 users/1
-  LoginUserInfo = '/users/',
-  // 获取用户菜单 role/1/menu
-  UserMenus = '/role/',
-
-  SavaPaper = 'article/savePaper'
+  ArticleInfo = 'article/getArticleById/',
+  ArticleInfoAll = 'article/getArticleAll',
+  ArticleInfoByUserId = 'article/getArticleByUserId/'
 }
 
 /**
@@ -32,36 +22,37 @@ export function userSavePaper(paper: IPaper) {
   })
 }
 
-export function getPaperInfoById(id: number) {
+/**
+ * @desc 根据文章ID获取文章信息
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function getPaperInfoById(id: string) {
   return hyRequest.get<IDataType>({
     url: UserArticle.ArticleInfo + id
   })
 }
 
 /**
- * @desc 根据Id获取用户信息
- * @date 2022-03-15
- * @param {any} id:number
- * id: 用户Id
+ * @desc 获取所有文章信息
+ * @date 2022-04-29
  * @returns {any}
  */
-export function requestUserInfoById(id: number) {
+export function getArticleAll() {
   return hyRequest.get<IDataType>({
-    url: LoginAPI.LoginUserInfo + id,
-    showLoading: false
+    url: UserArticle.ArticleInfoAll
   })
 }
 
 /**
- * @desc 根据用户角色请求用户菜单
- * @date 2022-03-15
- * @param {any} id:number
- * id: 用户的用户角色Id
+ * @desc 获取当前用户的所有文章
+ * @date 2022-04-29
+ * @param {any} id:string
  * @returns {any}
  */
-export function requestUserMenuByRoleId(id: number) {
+export function ArticleInfoByUserId(id: string) {
   return hyRequest.get<IDataType>({
-    url: LoginAPI.UserMenus + id + '/menu',
-    showLoading: false
+    url: UserArticle.ArticleInfoByUserId + id
   })
 }

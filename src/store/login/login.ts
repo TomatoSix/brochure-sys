@@ -32,7 +32,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeToken(state, token: string) {
       state.token = token
     },
-    changeUerInfo(state, userInfo: any) {
+    changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
     },
     changeUserMenus(state, userMenus: any) {
@@ -65,9 +65,11 @@ const loginModule: Module<ILoginState, IRootState> = {
 
         // 2. 请求用户信息数据
         const userInfoResult = await requestUserInfoById(id)
-        const userInfo = userInfoResult.data
-        commit('changeUerInfo', userInfo)
-        localCache.setCache('userInfo', userInfo)
+        console.log(userInfoResult, 'userInfoResult')
+
+        // const userInfo = userInfoResult.data
+        commit('changeUserInfo', userInfoResult)
+        localCache.setCache('userInfo', userInfoResult)
 
         // 3. 请求用户菜单
         // const userMenusResult = await requestUserMenuByRoleId(userInfo.role.id)

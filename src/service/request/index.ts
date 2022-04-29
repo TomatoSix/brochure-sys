@@ -58,6 +58,8 @@ class HYRequest {
         this.loading?.close()
 
         const data = res.data
+        // console.log(res.data, '打印')
+
         // 后端会返回一个returnCode
         if (data.returnCode === '-1001') {
           console.log('请求失败， 错误信息')

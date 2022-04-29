@@ -1,5 +1,5 @@
 export interface IDataType<T = any> {
-  code: number
+  returnCode: string
   data: T
 }
 

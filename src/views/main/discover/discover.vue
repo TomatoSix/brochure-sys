@@ -8,7 +8,7 @@
     >
       <div class="author">{{ item.authorName }}</div>
       <div class="title">{{ item.title }}</div>
-      <div class="content">{{ item.content }}</div>
+      <div class="content">{{ item.digest }}</div>
       <div class="detail">
         <div class="like">
           <el-icon :size="18"> <component :is="View"></component> </el-icon>
@@ -26,40 +26,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { ChatDotRound, View } from '@element-plus/icons-vue'
 import router from '@/router'
-
+import { getArticleAll } from '@/service/article/article'
 export default defineComponent({
   setup() {
-    const articleData = reactive([
-      {
-        articleId: 1,
-        authorName: '苏苏同学',
-        title: '彻底弄懂前端缓存',
-        content:
-          '前端缓存，这是一个老生常谈的话题.前端缓存，这是一个老生常谈的话题，也常被作为前端面试的一个知识点。今天我们再来总结一下。前端缓存，这是一个老生常谈的话题，也常被作为前端面试的一个知识点。今天我们再来总结一下。前端缓存，这是一个老生常谈的话题，也常被作为前端面试的一个知识点。今天我们再来总结一下。',
-        likes: 40,
-        comments: 32
-      },
-      {
-        articleId: 1,
-        authorName: '我就是胖虎',
-        title: '实现一个逐步递增的数字动画',
-        content: '可视化大屏项目最多的组件就是数字组件',
-        likes: 40,
-        comments: 32
-      },
-      {
-        articleId: 1,
-        authorName: '苏苏同学',
-        title: '彻底弄懂前端缓存',
-        content: '前端缓存，这是一个老生常谈的话题',
-        likes: 198,
-        comments: 20
-      }
-    ])
-
+    let articleData = ref([])
+    const getArticleData = function () {
+      getArticleAll().then((res) => {
+        if (res.returnCode === '0000') {
+          articleData.value = res.data
+        }
+      })
+    }
     const routerToDetail = function (id: number) {
       router.push({
         name: 'articleDetail',
@@ -68,9 +48,14 @@ export default defineComponent({
         }
       })
     }
+    onMounted(() => {
+      getArticleData()
+    })
+
     return {
       articleData,
       routerToDetail,
+      getArticleData,
       ChatDotRound,
       View
     }
