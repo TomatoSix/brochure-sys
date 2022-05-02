@@ -42,9 +42,9 @@ const routes: Array<RouteRecordRaw> = [
         children: []
       },
       {
-        path: 'brochureDetail/:id',
+        path: 'brochureDetail',
         name: 'brochureDetail',
-        redirect: '/main/brochureDetail/:id/introduce',
+        redirect: '/main/brochureDetail/introduce',
 
         component: () =>
           import(
@@ -199,11 +199,45 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/main/editor/editor.vue')
   },
+
   {
-    path: '/show',
-    name: 'show',
+    path: '/booklet',
+    name: 'booklet',
     component: () =>
-      import(/* webpackChunkName: "about" */ '../views/main/editor/show.vue')
+      import(/* webpackChunkName: "about" */ '../views/main/editor/booklet.vue')
+  },
+  {
+    path: '/apply',
+    name: 'apply',
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/main/editor/apply.vue')
+  },
+  {
+    path: '/drafts',
+    name: 'drafts',
+    // redirect: '/drafts/articleManage',
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ '../views/main/editor/drafts/drafts.vue'
+      ),
+    children: [
+      {
+        path: '/articleManage',
+        name: 'articleManage',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/main/editor/drafts/article-manage.vue'
+          )
+      },
+      {
+        path: '/brochureManage',
+        name: 'brochureManage',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/main/editor/drafts/brochure-manage.vue'
+          )
+      }
+    ]
   }
 ]
 

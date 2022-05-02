@@ -3,14 +3,25 @@
     <div class="top">
       <div class="left"><img :src="bookUrl" alt="" /></div>
       <div class="right">
-        <div class="title">Mysql性能调优必知必会</div>
-        <div class="explain">摄入解读底层原理, 搞懂Mysql性能优化内幕</div>
+        <div class="title">{{ brochure.headline }}</div>
+        <div class="explain">{{ brochure.outline }}</div>
         <div class="author">
           <div class="portrait"><el-avatar :size="30" :src="avatarUrl" /></div>
-          <div class="name">小杨爱技术</div>
-          <div class="figure">公众号 「三元同学」</div>
+          <div class="name">{{ brochure.authorName }}</div>
+          <div class="figure"></div>
         </div>
-        <el-button type="primary" class="purchase">购买: 49.9</el-button>
+        <el-button type="primary" class="purchase" @click="dialogVisible = true"
+          >购买: {{ brochure.price }}</el-button
+        >
+        <el-dialog v-model="dialogVisible" width="30%">
+          <span>是否确认购买?</span>
+          <template #footer>
+            <span class="dialog-footer">
+              <el-button @click="dialogVisible = false">取消</el-button>
+              <el-button type="primary" @click="purchase">确认</el-button>
+            </span>
+          </template>
+        </el-dialog>
       </div>
     </div>
     <div class="content">
@@ -36,12 +47,17 @@
 
 <script lang="ts">
 import router from '@/router'
-import { defineComponent, reactive, ref } from 'vue'
-
+import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { getBrochureById } from '@/service/article/article'
 export default defineComponent({
   setup() {
     const bookUrl = require('@/assets/book.png')
     const avatarUrl = require('@/assets/portrait.png')
+    const route = useRoute()
+    let brochureId = route.query.id as string
+    let brochure = ref({})
     let nav = reactive([
       {
         name: 'introduce',
@@ -57,13 +73,49 @@ export default defineComponent({
       }
     ])
     let activeIndex = ref(0)
+    const dialogVisible = ref(false)
     const changeRoute = function (item: any, index: number) {
       activeIndex.value = index
       router.push({
-        name: item.name
+        name: item.name,
+        query: {
+          id: brochureId
+        }
       })
     }
-    return { bookUrl, avatarUrl, nav, activeIndex, changeRoute }
+
+    const getData = function () {
+      getBrochureById(brochureId).then((res) => {
+        if (res.returnCode === '0000') {
+          brochure.value = res.data
+        }
+      })
+    }
+    const purchase = function () {
+      dialogVisible.value = false
+      let number = (brochure.value as any).purchaseNumber
+      number += 1
+      // 调用接口
+      ElMessage({
+        message: '购买成功！',
+        type: 'success'
+      })
+      // 跳转到小册页面
+    }
+    onMounted(() => {
+      getData()
+    })
+    return {
+      bookUrl,
+      avatarUrl,
+      brochure,
+      nav,
+      dialogVisible,
+      activeIndex,
+      changeRoute,
+      getData,
+      purchase
+    }
   }
 })
 </script>

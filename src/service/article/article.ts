@@ -6,7 +6,11 @@ enum UserArticle {
   SavaPaper = 'article/savePaper',
   ArticleInfo = 'article/getArticleById/',
   ArticleInfoAll = 'article/getArticleAll',
-  ArticleInfoByUserId = 'article/getArticleByUserId/'
+  ArticleInfoByUserId = 'article/getArticleByUserId/',
+  Apply = 'article/apply',
+  GetBrochureAll = 'article/getBrochureAll',
+  GetBrochureByUserId = 'article/getBrochureByUserId/',
+  GetBrochureById = 'article/getBrochureById/'
 }
 
 /**
@@ -30,7 +34,8 @@ export function userSavePaper(paper: IPaper) {
  */
 export function getPaperInfoById(id: string) {
   return hyRequest.get<IDataType>({
-    url: UserArticle.ArticleInfo + id
+    url: UserArticle.ArticleInfo + id,
+    showLoading: false
   })
 }
 
@@ -41,7 +46,8 @@ export function getPaperInfoById(id: string) {
  */
 export function getArticleAll() {
   return hyRequest.get<IDataType>({
-    url: UserArticle.ArticleInfoAll
+    url: UserArticle.ArticleInfoAll,
+    showLoading: false
   })
 }
 
@@ -53,6 +59,58 @@ export function getArticleAll() {
  */
 export function ArticleInfoByUserId(id: string) {
   return hyRequest.get<IDataType>({
-    url: UserArticle.ArticleInfoByUserId + id
+    url: UserArticle.ArticleInfoByUserId + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 小册提交申请
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function brochureSubmit(params: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.Apply,
+    data: params
+  })
+}
+
+/**
+ * @desc 获取所有小册
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function getBrochureAll() {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.GetBrochureAll,
+    showLoading: false
+  })
+}
+/**
+ * @desc 获取当前用户所有小册
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function getBrochureByUserId(id: string) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.GetBrochureByUserId + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 根据小册Id获取文章信息
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function getBrochureById(id: string) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.GetBrochureById + id,
+    showLoading: false
   })
 }

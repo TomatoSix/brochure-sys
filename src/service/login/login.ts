@@ -1,7 +1,6 @@
 import hyRequest from '../index'
-import { ElMessage, ElForm } from 'element-plus'
 
-import { IAccount, IDataType, ILoginResult } from './types'
+import { IAccount, IDataType, ILoginResult, IUserData } from './types'
 
 enum LoginAPI {
   // 用户注册
@@ -9,9 +8,9 @@ enum LoginAPI {
   // 用户登录
   AccountLogin = '/login',
   // 获取用户信息 users/1
-  LoginUserInfo = '/users/getUserInfo/',
-  // 获取用户菜单 role/1/menu
-  UserMenus = '/role/'
+  // LoginUserInfo = '/users/getUserInfo/',
+  UserData = '/users/getPersonData/',
+  setPersonData = '/users/setPersonData'
 }
 /**
  * @desc 用户注册接口
@@ -49,23 +48,31 @@ export function accountLoginRequest(account: IAccount) {
  * id: 用户Id
  * @returns {any}
  */
-export function requestUserInfoById(id: number) {
-  return hyRequest.post<IDataType>({
-    url: LoginAPI.LoginUserInfo + id,
-    showLoading: false
-  })
-}
+// export function requestUserInfoById(id: number) {
+//   return hyRequest.get<IDataType>({
+//     url: LoginAPI.UserData + id,
+//     showLoading: false
+//   })
+// }
 
 /**
- * @desc 根据用户角色请求用户菜单
+ * @desc 根据用户Id请求用户个人资料
  * @date 2022-03-15
  * @param {any} id:number
  * id: 用户的用户角色Id
  * @returns {any}
  */
-export function requestUserMenuByRoleId(id: number) {
+export function requestUserDataById(id: number) {
   return hyRequest.get<IDataType>({
-    url: LoginAPI.UserMenus + id + '/menu',
+    url: LoginAPI.UserData + id,
     showLoading: false
+  })
+}
+
+// 设置个人资料
+export function setPersonData(data: any) {
+  return hyRequest.post<IDataType>({
+    url: LoginAPI.setPersonData,
+    data: data
   })
 }

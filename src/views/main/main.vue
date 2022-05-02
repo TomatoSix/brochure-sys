@@ -20,12 +20,33 @@
         <div class="search">
           <el-input v-model="input" placeholder="搜索文章/小册/用户" />
           <el-button type="primary" class="btn">搜索</el-button>
-          <el-button type="primary" class="btn" plain @click="routerToArticle"
-            >写文章</el-button
-          >
-          <el-button type="primary" class="btn" plain @click="routerToBrochure"
-            >写小册</el-button
-          >
+
+          <el-dropdown type="primary" class="dropdown">
+            <el-button type="primary" class="btn">写文章</el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="routerToArticle('editor')"
+                  >文章写作</el-dropdown-item
+                >
+                <el-dropdown-item @click="routerToArticle('drafts')"
+                  >草稿箱</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <el-dropdown type="primary" class="dropdown">
+            <el-button type="primary" class="btn">写小册</el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item @click="routerToBrochure('booklet')"
+                  >小册写作</el-dropdown-item
+                >
+                <el-dropdown-item @click="routerToBrochure('apply')"
+                  >小册申请</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
         </div>
         <!-- 头像 -->
         <div class="portrait">
@@ -76,14 +97,14 @@ export default defineComponent({
       })
     }
 
-    const routerToArticle = function () {
+    const routerToArticle = function (routerName: string) {
       router.push({
-        name: 'editor'
+        name: routerName
       })
     }
-    const routerToBrochure = function () {
+    const routerToBrochure = function (name: string) {
       router.push({
-        name: 'editor'
+        name: name
       })
     }
     return {
@@ -141,6 +162,9 @@ export default defineComponent({
         justify-content: space-around;
         .btn {
           margin-left: 20px;
+        }
+        .dropdown {
+          display: flex;
         }
       }
       .portrait {

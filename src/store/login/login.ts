@@ -4,11 +4,7 @@ import { Module } from 'vuex'
 import { ElMessage } from 'element-plus'
 
 import localCache from '@/utils/cache'
-import {
-  accountLoginRequest,
-  requestUserInfoById,
-  requestUserMenuByRoleId
-} from '@/service/login/login'
+import { accountLoginRequest, requestUserDataById } from '@/service/login/login'
 import router from '@/router'
 import { IAccount } from '@/service/login/types'
 import { IRootState } from '../types'
@@ -62,9 +58,10 @@ const loginModule: Module<ILoginState, IRootState> = {
         commit('changeToken', token)
         // 将token放入axios实例中
         localCache.setCache('token', token)
+        console.log(id, 'id')
 
         // 2. 请求用户信息数据
-        const userInfoResult = await requestUserInfoById(id)
+        const userInfoResult = await requestUserDataById(id)
         console.log(userInfoResult, 'userInfoResult')
 
         // const userInfo = userInfoResult.data
@@ -114,10 +111,10 @@ const loginModule: Module<ILoginState, IRootState> = {
         commit('changeUserInfo', userInfo)
       }
       // 存储用户菜单信息
-      const userMenus = localCache.getCache('userMenus')
-      if (userMenus) {
-        commit('changeUserMenus', userMenus)
-      }
+      // const userMenus = localCache.getCache('userMenus')
+      // if (userMenus) {
+      //   commit('changeUserMenus', userMenus)
+      // }
     }
   }
 }

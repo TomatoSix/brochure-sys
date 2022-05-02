@@ -8,13 +8,13 @@ export const rules = {
       required: true,
       message: '请输入账号',
       trigger: 'blur'
-    },
-    {
-      // 5-10个字母或数字
-      pattern: /^[a-zA-Z0-9]{5,10}$/,
-      message: '用户名必须是5-10个字母或数字',
-      trigger: 'blur'
     }
+    // {
+    //   // 5-10个字母或数字
+    //   pattern: /^[a-zA-Z0-9]{5,10}$/,
+    //   message: '用户名必须是5-10个字母或数字',
+    //   trigger: 'blur'
+    // }
   ],
   password: [
     {

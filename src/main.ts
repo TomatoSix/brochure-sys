@@ -3,7 +3,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 import 'normalize.css'
 import './assets/css/index.css'
-
+import './assets/iconfont/iconfont.css'
 import { createApp } from 'vue'
 
 // 引入markdown编辑器

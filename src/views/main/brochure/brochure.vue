@@ -3,82 +3,71 @@
     <div
       class="section"
       v-for="item in brochure"
-      :key="item.title"
-      @click="pushDetail(item.id)"
+      :key="item.brochureId"
+      @click="pushDetail(item.brochureId)"
     >
       <div class="img">
-        <img :src="item.img" alt="" />
+        <img :src="img" alt="" />
       </div>
       <div class="right">
-        <div class="title">{{ item.title }}</div>
-        <div class="explain">{{ item.explain }}</div>
+        <div class="title">{{ item.headline }}</div>
+        <div class="explain">{{ item.theme }}</div>
         <div class="author">
-          <el-avatar :size="25" :src="item.author.authorAvatar" />
+          <el-avatar :size="25" :src="avatar" />
           <span>
-            {{ item.author.authorName }}
+            {{ item.authorName }}
           </span>
         </div>
         <div class="detail">
           <div class="price">¥{{ item.price }}</div>
-          <span class="other"
-            >{{ item.section }}小节 {{ item.purchase }}人已购买</span
-          >
+          <span class="other"> {{ item.purchaseNumber }}人已购买</span>
         </div>
       </div>
     </div>
-    <router-view></router-view>
+    <!-- <router-view></router-view> -->
+    <div class="right2">
+      <div class="top" @click="routerChange()">已购小册</div>
+      <div class="top" @click="routerChange('apply')">成为作者</div>
+      <div class="top" @click="routerChange()">建议反馈</div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import router from '@/router'
-import { defineComponent, reactive } from 'vue'
-
+import { useRoute } from 'vue-router'
+import { defineComponent, onMounted, reactive, ref, useAttrs } from 'vue'
+import { getBrochureAll } from '@/service/article/article'
 export default defineComponent({
   setup() {
-    const brochure = reactive([
-      {
-        id: 1,
-        title: '初探前端工程化',
-        img: require('@/assets/nodejs.png'),
-        explain: '将工程化和前端开发结合,让开发事半功倍',
-        price: '29.9',
-        section: '18',
-        purchase: '1181',
-        author: {
-          authorAvatar: require('@/assets/portrait.png'),
-          authorName: 'zxg_神说',
-          authorDetail: '公众号[神光的编程秘籍]'
+    const img = require('@/assets/nodejs.png')
+    const avatar = require('@/assets/portrait.png')
+    const brochure = ref([])
+    const getBrochureData = function () {
+      getBrochureAll().then((res) => {
+        if (res.returnCode === '0000') {
+          brochure.value = res.data
         }
-      },
-      {
-        id: 2,
-        title: '初探前端工程化',
-        img: require('@/assets/nodejs.png'),
-        explain: '将工程化和前端开发结合,让开发事半功倍',
-        price: '29.9',
-        section: '18',
-        purchase: '9317',
-        author: {
-          authorAvatar: require('@/assets/portrait.png'),
-          authorName: '我不是外星人',
-          authorDetail: '前端工程师 @ 某大型电商'
-        }
-      }
-    ])
-
+      })
+    }
+    onMounted(() => {
+      getBrochureData()
+    })
     const pushDetail = function (id: number) {
       router.push({
         name: 'brochureDetail',
-        params: {
+        query: {
           id: id
         }
       })
       console.log(id, '111')
     }
     return {
+      img,
+      avatar,
       brochure,
-      pushDetail
+      pushDetail,
+      getBrochureData
     }
   }
 })
@@ -86,10 +75,12 @@ export default defineComponent({
 
 <style scoped lang="less">
 .brochure {
+  display: flex;
   background-color: white;
   height: 100%;
   margin-top: 10px;
   .section {
+    width: 70%;
     display: flex;
     height: 200px;
     box-sizing: border-box;
@@ -141,6 +132,18 @@ export default defineComponent({
   .section:hover {
     cursor: pointer;
     background: rgb(240, 240, 240);
+  }
+  .right2 {
+    font-size: 20px;
+    flex: 1;
+    border-left: 20px solid rgb(240, 240, 240);
+    .top {
+      cursor: pointer;
+      border-bottom: 10px solid rgb(240, 240, 240);
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 </style>

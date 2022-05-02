@@ -41,8 +41,6 @@ export default defineComponent({
 
     const textarea = ref('')
     const getEssayData = function () {
-      console.log(route.params, 'params')
-
       let essayId = route.params.id as string
 
       getPaperInfoById(essayId).then((res) => {

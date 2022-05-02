@@ -20,3 +20,14 @@ export interface IPaper {
   content: string // 文章内容
   title: string // 文章标题
 }
+
+export interface IUserData {
+  user_id: string
+  id: string
+  name: string
+  company: string
+  homepage: string
+  introduction: string
+  portrait: string
+  position: string
+}

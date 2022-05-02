@@ -11,13 +11,14 @@
       <div class="content">{{ item.digest }}</div>
       <div class="detail">
         <div class="like">
-          <el-icon :size="18"> <component :is="View"></component> </el-icon>
+          <i class="iconfont icon-dianzan"></i>
           <span>{{ item.likes }}</span>
         </div>
         <div class="comments">
-          <el-icon :size="18">
+          <!-- <el-icon :size="18">
             <component :is="ChatDotRound"></component>
-          </el-icon>
+          </el-icon> -->
+          <i class="iconfont icon-pinglun"></i>
           <span>{{ item.comments }}</span>
         </div>
       </div>
@@ -36,7 +37,11 @@ export default defineComponent({
     const getArticleData = function () {
       getArticleAll().then((res) => {
         if (res.returnCode === '0000') {
-          articleData.value = res.data
+          console.log(res.data, 'data')
+
+          articleData.value = res.data.filter((item: any) => {
+            return item.isDraft === '0'
+          })
         }
       })
     }

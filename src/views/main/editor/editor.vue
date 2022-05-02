@@ -48,9 +48,10 @@ export default defineComponent({
           let userId = store.state.login.userInfo.id
           let params = {
             user_id: userId,
-            digest: digest,
+            digest: digest.value,
             content: text.value,
-            title: title.value
+            title: title.value,
+            isDraft: '1'
           }
           userSavePaper(params).then((res) => {
             console.log(res, 'res')
@@ -82,9 +83,25 @@ export default defineComponent({
       })
         .then(() => {
           // 发布接口
-          ElMessage({
-            type: 'success',
-            message: '发布成功'
+
+          let userId = store.state.login.userInfo.id
+          let params = {
+            user_id: userId,
+            digest: digest.value,
+            content: text.value,
+            title: title.value,
+            isDraft: '0'
+          }
+          userSavePaper(params).then((res) => {
+            console.log(res, 'res')
+
+            if (res.returnCode === '0000') {
+              showText.value = res.data[0].content
+              ElMessage({
+                type: 'success',
+                message: '发布成功'
+              })
+            }
           })
           // 直接跳转到主页吧
         })
