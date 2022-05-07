@@ -113,6 +113,8 @@ export default defineComponent({
           ElMessage.success('注册成功，请登录')
         })
         .catch((e) => {
+          console.log(e)
+
           ElMessage.error('注册失败，请重新注册')
         })
     }

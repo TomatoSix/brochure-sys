@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { UploadRawFile } from 'element-plus'
 export default defineComponent({
   setup() {

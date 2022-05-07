@@ -90,9 +90,9 @@ const loginModule: Module<ILoginState, IRootState> = {
      * @param {any} payload:any
      * @returns {any}
      */
-    registerAction({ commit }, payload: any) {
-      console.log('注册action')
-    },
+    // registerAction({ commit }, payload: any) {
+    //   console.log('注册action')
+    // },
     /**
      * @desc 刷新时存储vue中的数据
      * @date 2022-03-15

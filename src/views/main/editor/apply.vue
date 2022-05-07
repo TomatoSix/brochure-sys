@@ -30,6 +30,9 @@
         <el-form-item label="小册大纲" prop="outline">
           <el-input v-model="ruleForm.outline" />
         </el-form-item>
+        <el-form-item label="小册价格" prop="outline">
+          <el-input v-model="ruleForm.price" />
+        </el-form-item>
         <el-form-item>
           <el-button @click="submit(ruleFormRef)" class="btn" type="primary"
             >提交</el-button
@@ -54,7 +57,8 @@ export default defineComponent({
       author: '', // 作者介绍
       theme: '', // 小册主题
       introduce: '', // 小册介绍
-      outline: '' // 小册大纲
+      outline: '', // 小册大纲
+      price: ''
     })
     const rules = reactive({
       headline: [
@@ -104,7 +108,7 @@ export default defineComponent({
     const submit = (formEl: any) => {
       console.log(formEl)
 
-      formEl.validate((valid: boolean, fields: any) => {
+      formEl.validate((valid: boolean) => {
         if (valid) {
           const id = store.state.login.userInfo.id
           const params = { id, ...ruleForm, isPublish: '0' }
@@ -121,7 +125,10 @@ export default defineComponent({
                   message: '提交成功'
                 })
                 router.push({
-                  name: 'booklet'
+                  name: 'booklet',
+                  query: {
+                    brochureId: res.data.brochureId
+                  }
                 })
               })
             })
@@ -146,6 +153,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .booklet {
+  overflow: auto;
   display: flex;
   justify-content: center;
   background-color: rgb(240, 240, 240);
@@ -156,7 +164,7 @@ export default defineComponent({
     height: 100%;
     background-color: white;
     .title {
-      margin-top: 50px;
+      margin-top: 30px;
       font-weight: 600;
       text-align: center;
       font-size: 24px;
@@ -165,7 +173,7 @@ export default defineComponent({
       padding: 20px 50px;
 
       .btn {
-        margin-top: 50px;
+        margin-top: 10px;
         width: 800px;
       }
     }

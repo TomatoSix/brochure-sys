@@ -26,8 +26,9 @@
               <i class="iconfont icon-shuju"> </i>
               <span> 数据中心</span>
             </template>
-            <el-menu-item index="2-1">内容数据</el-menu-item>
-            <el-menu-item index="2-2">关注者数据</el-menu-item>
+            <el-menu-item index="contentData">内容数据</el-menu-item>
+            <el-menu-item index="orderData">订单数据</el-menu-item>
+            <el-menu-item index="followData">关注者数据</el-menu-item>
           </el-sub-menu>
           <el-menu-item index="3">
             <i class="iconfont icon-shouye"> </i>

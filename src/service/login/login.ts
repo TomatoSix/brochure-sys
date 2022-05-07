@@ -1,6 +1,6 @@
 import hyRequest from '../index'
 
-import { IAccount, IDataType, ILoginResult, IUserData } from './types'
+import { IAccount, IDataType, ILoginResult } from './types'
 
 enum LoginAPI {
   // 用户注册

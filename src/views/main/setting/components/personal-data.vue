@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import type { UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
@@ -99,7 +99,7 @@ export default defineComponent({
       response,
       uploadFile
     ) => {
-      personalData.value.portrait = URL.createObjectURL(uploadFile.raw!)
+      personalData.value.portrait = URL.createObjectURL(uploadFile.raw)
     }
     // 获取图片数据
     const getData = function () {

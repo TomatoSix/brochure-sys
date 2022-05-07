@@ -18,12 +18,14 @@ import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
 import Prism from 'prismjs'
 // highlight code
 import 'prismjs/components/prism-json'
-
+// import hljs from 'highlight.js'
 VMdEditor.use(vuepressTheme, {
   Prism
+  // Hljs: hljs
 })
 VMdPreview.use(vuepressTheme, {
   Prism
+  // Hljs: hljs
 })
 
 import { globalRegister } from './global'

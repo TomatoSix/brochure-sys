@@ -1,29 +1,32 @@
 <template>
   <div class="brochure">
-    <div
-      class="section"
-      v-for="item in brochure"
-      :key="item.brochureId"
-      @click="pushDetail(item.brochureId)"
-    >
-      <div class="img">
-        <img :src="img" alt="" />
-      </div>
-      <div class="right">
-        <div class="title">{{ item.headline }}</div>
-        <div class="explain">{{ item.theme }}</div>
-        <div class="author">
-          <el-avatar :size="25" :src="avatar" />
-          <span>
-            {{ item.authorName }}
-          </span>
+    <div class="left">
+      <div
+        class="section"
+        v-for="item in brochure"
+        :key="item.brochureId"
+        @click="pushDetail(item.brochureId)"
+      >
+        <div class="img">
+          <img :src="img" alt="" />
         </div>
-        <div class="detail">
-          <div class="price">¥{{ item.price }}</div>
-          <span class="other"> {{ item.purchaseNumber }}人已购买</span>
+        <div class="right">
+          <div class="title">{{ item.headline }}</div>
+          <div class="explain">{{ item.theme }}</div>
+          <div class="author">
+            <el-avatar :size="25" :src="avatar" />
+            <span>
+              {{ item.authorName }}
+            </span>
+          </div>
+          <div class="detail">
+            <div class="price">¥{{ item.price }}</div>
+            <span class="other"> {{ item.purchaseNumber }}人已购买</span>
+          </div>
         </div>
       </div>
     </div>
+
     <!-- <router-view></router-view> -->
     <div class="right2">
       <div class="top" @click="routerChange()">已购小册</div>
@@ -35,8 +38,7 @@
 
 <script lang="ts">
 import router from '@/router'
-import { useRoute } from 'vue-router'
-import { defineComponent, onMounted, reactive, ref, useAttrs } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { getBrochureAll } from '@/service/article/article'
 export default defineComponent({
   setup() {
@@ -60,7 +62,6 @@ export default defineComponent({
           id: id
         }
       })
-      console.log(id, '111')
     }
     return {
       img,
@@ -79,60 +80,65 @@ export default defineComponent({
   background-color: white;
   height: 100%;
   margin-top: 10px;
-  .section {
-    width: 70%;
-    display: flex;
-    height: 200px;
-    box-sizing: border-box;
-    padding: 20px;
-    .img {
-      width: 130px;
-      height: 150px;
+  .left {
+    flex: 4;
+    .section {
+      width: 100%;
+      display: flex;
+      height: 200px;
+      box-sizing: border-box;
+      padding: 20px;
+      .img {
+        width: 130px;
+        height: 150px;
 
-      img {
-        width: 100%;
-        height: 100%;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .right {
+        padding-left: 20px;
+        .title {
+          width: 100%;
+          padding: 10px 0;
+          font-size: 22px;
+        }
+        .explain {
+          color: gray;
+          font-size: 14px;
+          padding: 5px 0;
+        }
+        .author {
+          display: flex;
+          align-items: center;
+          height: 40px;
+
+          span {
+            padding-left: 10px;
+          }
+        }
+        .detail {
+          display: flex;
+          align-items: center;
+          .price {
+            font-size: 18px;
+            color: tomato;
+            margin-right: 15px;
+          }
+          .other {
+            font-size: 12px;
+            color: rgb(186, 184, 184);
+          }
+        }
       }
     }
-    .right {
-      padding-left: 20px;
-      .title {
-        height: 50px;
-        line-height: 50px;
-        font-size: 22px;
-      }
-      .explain {
-        color: gray;
-        font-size: 14px;
-      }
-      .author {
-        display: flex;
-        align-items: center;
-        height: 40px;
-
-        span {
-          padding-left: 10px;
-        }
-      }
-      .detail {
-        display: flex;
-        align-items: center;
-        .price {
-          font-size: 18px;
-          color: tomato;
-          margin-right: 15px;
-        }
-        .other {
-          font-size: 12px;
-          color: rgb(186, 184, 184);
-        }
-      }
+    .section:hover {
+      cursor: pointer;
+      background: rgb(240, 240, 240);
     }
   }
-  .section:hover {
-    cursor: pointer;
-    background: rgb(240, 240, 240);
-  }
+
   .right2 {
     font-size: 20px;
     flex: 1;

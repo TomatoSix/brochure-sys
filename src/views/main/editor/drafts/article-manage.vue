@@ -10,7 +10,12 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="草稿箱" name="drafts" class="content">
-        <div v-for="item in dratsData" :key="item.id" class="item">
+        <div
+          v-for="item in dratsData"
+          :key="item.id"
+          class="item"
+          @click="routerToEdit(item)"
+        >
           <div>
             {{ item.title }}
           </div>
@@ -24,6 +29,8 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
+import router from '@/router'
+
 import { formatUtcString } from '@/utils/date-format'
 import { ArticleInfoByUserId } from '@/service/article/article'
 export default defineComponent({
@@ -52,6 +59,15 @@ export default defineComponent({
         }
       })
     }
+    const routerToEdit = function (item: any) {
+      console.log(item, '2222')
+      router.push({
+        name: 'reEditor',
+        query: {
+          id: item.id
+        }
+      })
+    }
     onMounted(() => {
       getArticleData()
     })
@@ -60,7 +76,8 @@ export default defineComponent({
       articleData,
       activeName,
       handleClick,
-      getArticleData
+      getArticleData,
+      routerToEdit
     }
   }
 })

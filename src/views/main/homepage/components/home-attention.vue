@@ -1,5 +1,5 @@
 <template>
-  <div>attention</div>
+  <div class="attention">暂无关注</div>
 </template>
 
 <script lang="ts">
@@ -12,4 +12,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.attention {
+  padding: 20px;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div>likke</div>
+  <div class="like">暂无点赞</div>
 </template>
 
 <script lang="ts">
@@ -12,4 +12,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.like {
+  padding: 20px;
+}
+</style>

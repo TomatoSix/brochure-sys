@@ -38,6 +38,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     let essay = ref({})
+    const circleUrl = require('@/assets/portrait.png')
 
     const textarea = ref('')
     const getEssayData = function () {
@@ -59,7 +60,7 @@ export default defineComponent({
     const comment = function () {
       console.log(textarea)
     }
-    return { essay, textarea, comment, getEssayData }
+    return { circleUrl, essay, textarea, comment, getEssayData }
   }
 })
 </script>
@@ -72,6 +73,7 @@ export default defineComponent({
   .title {
     font-size: 28px;
     font-weight: 600;
+    padding-bottom: 30px;
   }
   .author {
     align-items: center;
@@ -79,9 +81,10 @@ export default defineComponent({
     margin-top: 20px;
     height: 50px;
     .left {
-      margin-right: 10px;
+      margin-right: 20px;
     }
     .right {
+      height: 50px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

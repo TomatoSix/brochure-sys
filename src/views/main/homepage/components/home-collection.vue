@@ -1,5 +1,5 @@
 <template>
-  <div>collection</div>
+  <div class="collection">暂无收藏</div>
 </template>
 
 <script lang="ts">
@@ -12,4 +12,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.collection {
+  padding: 20px;
+}
+</style>

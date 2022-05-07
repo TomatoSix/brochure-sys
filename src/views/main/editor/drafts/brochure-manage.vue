@@ -2,7 +2,12 @@
   <div class="brochure-manage">
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="已发布" name="emit" class="content">
-        <div v-for="item in brochureData" :key="item.id" class="item">
+        <div
+          v-for="item in brochureData"
+          :key="item.id"
+          class="item"
+          @click="routerToDetail(item)"
+        >
           <div>
             {{ item.headline }}
           </div>
@@ -10,7 +15,12 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="编辑中" name="edit" class="content">
-        <div v-for="item in editData" :key="item.id" class="item">
+        <div
+          v-for="item in editData"
+          :key="item.id"
+          class="item"
+          @click="routerToEdit(item)"
+        >
           <div>
             {{ item.headline }}
           </div>
@@ -25,6 +35,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import { getBrochureByUserId } from '@/service/article/article'
 import { useStore } from 'vuex'
+import router from '@/router'
 import { formatUtcString } from '@/utils/date-format'
 
 export default defineComponent({
@@ -51,6 +62,24 @@ export default defineComponent({
         })
       })
     }
+    const routerToEdit = function (item: any) {
+      console.log(item, 'item')
+
+      router.push({
+        name: 'booklet',
+        query: {
+          brochureId: item.brochureId
+        }
+      })
+    }
+    const routerToDetail = function (item: any) {
+      router.push({
+        name: 'brochureDetail',
+        query: {
+          brochureId: item.brochureId
+        }
+      })
+    }
     onMounted(() => {
       getBrochureData()
     })
@@ -59,7 +88,9 @@ export default defineComponent({
       activeName,
       editData,
       handleClick,
-      getBrochureData
+      getBrochureData,
+      routerToEdit,
+      routerToDetail
     }
   }
 })

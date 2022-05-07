@@ -51,7 +51,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .introduce {
-  padding: 30px;
+  padding: 0 30px;
 
   .title {
     font-size: 18px;

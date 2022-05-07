@@ -199,12 +199,28 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/main/editor/editor.vue')
   },
+  {
+    path: '/reEditor',
+    name: 'reEditor',
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ '../views/main/editor/reEditor.vue'
+      )
+  },
 
   {
     path: '/booklet',
     name: 'booklet',
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/main/editor/booklet.vue')
+  },
+  {
+    path: '/brochureShow',
+    name: 'brochureShow',
+    component: () =>
+      import(
+        /* webpackChunkName: "about" */ '../views/main/brochure/brochureShow.vue'
+      )
   },
   {
     path: '/apply',
@@ -235,6 +251,22 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import(
             /* webpackChunkName: "about" */ '../views/main/editor/drafts/brochure-manage.vue'
+          )
+      },
+      {
+        path: '/contentData',
+        name: 'contentData',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/main/editor/drafts/dataCenter/content-data.vue'
+          )
+      },
+      {
+        path: '/orderData',
+        name: 'orderData',
+        component: () =>
+          import(
+            /* webpackChunkName: "about" */ '../views/main/editor/drafts/dataCenter/order-data.vue'
           )
       }
     ]

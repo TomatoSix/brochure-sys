@@ -45,8 +45,11 @@ export default defineComponent({
         if (res.returnCode === '0000') {
           let list: any = []
           res.data.forEach((item: any) => {
-            item.createTime = formatUtcString(item.createTime)
-            list.push(item)
+            if (item.isDraft === '0') {
+              item.createTime = formatUtcString(item.createTime)
+
+              list.push(item)
+            }
           })
           console.log(list, 'data')
 

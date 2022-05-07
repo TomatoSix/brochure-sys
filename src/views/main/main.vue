@@ -7,9 +7,9 @@
           <div
             v-for="(item, index) in module"
             :key="index"
-            @click="btnClick(index)"
+            @click="btnClick(item.name, index)"
           >
-            <div :class="[item, { activeItem: isActive === index }]">
+            <div :class="[item, { activeItem: isActive === item.name }]">
               {{ item.name }}
             </div>
           </div>
@@ -38,11 +38,11 @@
             <el-button type="primary" class="btn">写小册</el-button>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item @click="routerToBrochure('booklet')"
-                  >小册写作</el-dropdown-item
-                >
                 <el-dropdown-item @click="routerToBrochure('apply')"
                   >小册申请</el-dropdown-item
+                >
+                <el-dropdown-item @click="routerToBrochure('brochureManage')"
+                  >草稿箱</el-dropdown-item
                 >
               </el-dropdown-menu>
             </template>
@@ -62,11 +62,10 @@
 
 <script lang="ts">
 import router from '@/router'
-
 import { defineComponent, reactive, ref } from 'vue'
 export default defineComponent({
   setup() {
-    const isActive = ref(0)
+    const isActive = ref('discover')
     const input = ref('')
     const module = reactive([
       {
@@ -84,8 +83,8 @@ export default defineComponent({
     ])
     const circleUrl = require('@/assets/portrait.png')
 
-    const btnClick = function (index: number) {
-      isActive.value = index
+    const btnClick = function (name: string, index: number) {
+      isActive.value = name
       router.push({
         name: module[index].route
       })

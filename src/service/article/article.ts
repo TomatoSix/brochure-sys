@@ -4,13 +4,22 @@ import { IDataType, IPaper } from './types'
 
 enum UserArticle {
   SavaPaper = 'article/savePaper',
+  EditPaper = 'article/editPaper',
+  EmitPaper = 'article/emitPaper',
   ArticleInfo = 'article/getArticleById/',
   ArticleInfoAll = 'article/getArticleAll',
   ArticleInfoByUserId = 'article/getArticleByUserId/',
   Apply = 'article/apply',
   GetBrochureAll = 'article/getBrochureAll',
   GetBrochureByUserId = 'article/getBrochureByUserId/',
-  GetBrochureById = 'article/getBrochureById/'
+  GetBrochureById = 'article/getBrochureById/',
+
+  GetChapterAllByBrochureId = 'article/getChapterAllByBrochureId/',
+  AddChapter = 'article/addChapter',
+  ReviseChapterContent = 'article/reviseChapterContent',
+  BrochureEmit = 'article/brochureEmit',
+  PurchaseBrochure = 'article/purchaseBrochure', // 购买小册
+  IsPurchase = 'article/isPurchase' // 购买小册
 }
 
 /**
@@ -23,6 +32,30 @@ export function userSavePaper(paper: IPaper) {
   return hyRequest.post<IDataType>({
     url: UserArticle.SavaPaper,
     data: paper
+  })
+}
+/**
+ * @desc 修改文章
+ * @date 2022-04-26
+ * @param {any} paper:IPaper
+ * @returns {any}
+ */
+export function editPaper(data: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.EditPaper,
+    data: data
+  })
+}
+/**
+ * @desc 修改文章
+ * @date 2022-04-26
+ * @param {any} paper:IPaper
+ * @returns {any}
+ */
+export function emitPaper(data: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.EmitPaper,
+    data: data
   })
 }
 
@@ -111,6 +144,89 @@ export function getBrochureByUserId(id: string) {
 export function getBrochureById(id: string) {
   return hyRequest.get<IDataType>({
     url: UserArticle.GetBrochureById + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 获取小册的所有章节
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function getChapterAllByBrochureId(id: string) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.GetChapterAllByBrochureId + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 添加章节
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function addChapter(params: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.AddChapter,
+    data: params,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 修改章节内容
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function reviseChapterContent(params: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.ReviseChapterContent,
+    data: params,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 小册发布
+ * @date 2022-04-29
+ * @param {any} id:string
+ * @returns {any}
+ */
+export function brochureEmit(params: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.BrochureEmit,
+    data: params,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 购买小册
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function purchaseBrochure(params: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.PurchaseBrochure,
+    data: params,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 寻找订单
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function hasPurchase(params: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.IsPurchase,
+    data: params,
     showLoading: false
   })
 }

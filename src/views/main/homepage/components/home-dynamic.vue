@@ -1,5 +1,5 @@
 <template>
-  <div>动态</div>
+  <div class="dynamic">暂无动态</div>
 </template>
 
 <script lang="ts">
@@ -12,4 +12,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.dynamic {
+  padding: 20px;
+}
+</style>
