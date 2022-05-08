@@ -110,7 +110,7 @@ export default defineComponent({
                 })
               }
             })
-            .catch((e) => {
+            .catch(() => {
               ElMessage({
                 type: 'error',
                 message: '发布失败'
