@@ -124,6 +124,7 @@ export default defineComponent({
       getBrochureById(brochureId).then((res) => {
         if (res.returnCode === '0000') {
           brochure.value = res.data
+          console.log(brochure.value, 'value')
         }
       })
     }
@@ -133,6 +134,8 @@ export default defineComponent({
         brochureId: brochureId,
         buyer: buyer
       }
+      console.log(params, 'params')
+
       hasPurchase(params).then((res) => {
         if (res.returnCode === '0000') {
           console.log(res, '已经购买')
@@ -143,11 +146,13 @@ export default defineComponent({
     // 点击购买
     const purchase = function () {
       dialogVisible.value = false
+      // 获取当前小册的用户Id
+
       // 调用接口 关于订单的
       const params: any = {
         brochureId: brochureId,
         buyer: buyer,
-        price: '29.9'
+        seller: brochure.value.user_id
       }
 
       purchaseBrochure(params)

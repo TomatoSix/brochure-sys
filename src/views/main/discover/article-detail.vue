@@ -13,7 +13,9 @@
     <div class="content">
       <v-md-preview :text="essay.content"></v-md-preview>
     </div>
+    <div class="like"></div>
   </div>
+
   <div class="comment">
     <h3>评论</h3>
     <el-input

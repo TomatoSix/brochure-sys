@@ -1,15 +1,19 @@
 <template>
   <div class="brochure">
-    <div class="item" v-for="(item, index) in brochure" :key="index">
-      <div class="author">
-        <div class="name">{{ item.authorName }}</div>
-        <div class="partition">|</div>
-        <div class="time">{{ item.createAt }}</div>
-      </div>
-      <div class="title">
-        {{ item.headline }}
+    <div v-if="brochure.length !== 0">
+      <div class="item" v-for="(item, index) in brochure" :key="index">
+        <div class="author">
+          <div class="name">{{ item.authorName }}</div>
+          <div class="partition">|</div>
+          <div class="time">{{ item.createAt }}</div>
+        </div>
+        <div class="title">
+          {{ item.headline }}
+        </div>
       </div>
     </div>
+
+    <div v-else>暂无小册</div>
   </div>
 </template>
 
@@ -26,7 +30,6 @@ export default defineComponent({
     const brochure: any = ref([])
     const getData = function () {
       getBrochureByUserId(userId).then((res) => {
-        console.log(res, 'res')
         res.data.forEach((item: any) => {
           if (item.isPublish === '1') {
             item.createAt = formatUtcString(item.createAt)

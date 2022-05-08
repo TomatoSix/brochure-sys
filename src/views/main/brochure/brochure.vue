@@ -29,7 +29,7 @@
 
     <!-- <router-view></router-view> -->
     <div class="right2">
-      <div class="top" @click="routerChange()">已购小册</div>
+      <div class="top" @click="routerChange('homeRecord')">已购小册</div>
       <div class="top" @click="routerChange('apply')">成为作者</div>
       <div class="top" @click="routerChange()">建议反馈</div>
     </div>
@@ -63,11 +63,18 @@ export default defineComponent({
         }
       })
     }
+    // 修改路由
+    const routerChange = function (name: string) {
+      router.push({
+        name: name
+      })
+    }
     return {
       img,
       avatar,
       brochure,
       pushDetail,
+      routerChange,
       getBrochureData
     }
   }

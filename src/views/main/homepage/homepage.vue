@@ -3,7 +3,7 @@
     <div class="top">
       <div class="avatar"><el-avatar :size="100" :src="avatarUrl" /></div>
       <div class="middle">
-        <div class="name">番茄炒小六</div>
+        <div class="name">{{ name }}</div>
         <div class="explain">
           <div class="detail" @click="editInformation">+你从事什么职业</div>
           <div class="detail" @click="editInformation">+你的公众号</div>
@@ -34,6 +34,7 @@
 
 <script lang="ts">
 import router from '@/router'
+import { useStore } from 'vuex'
 import { defineComponent, reactive, ref } from 'vue'
 
 export default defineComponent({
@@ -54,6 +55,10 @@ export default defineComponent({
         label: '小册'
       },
       {
+        name: 'homeRecord',
+        label: '已购小册'
+      },
+      {
         name: 'homeCollection',
         label: '收藏集'
       },
@@ -66,7 +71,8 @@ export default defineComponent({
         label: '关注'
       }
     ])
-
+    const store = useStore()
+    const name = store.state.login.userInfo.name
     // const dialogVisible = ref(false)
     const editInformation = function () {
       router.push({
@@ -81,6 +87,7 @@ export default defineComponent({
       activeIndex.value = index
     }
     return {
+      name,
       nav,
       avatarUrl,
       activeIndex,

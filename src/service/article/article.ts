@@ -19,7 +19,10 @@ enum UserArticle {
   ReviseChapterContent = 'article/reviseChapterContent',
   BrochureEmit = 'article/brochureEmit',
   PurchaseBrochure = 'article/purchaseBrochure', // 购买小册
-  IsPurchase = 'article/isPurchase' // 购买小册
+  IsPurchase = 'article/isPurchase', // 购买小册
+  GetArticleData = 'article/getArticleData/', // 获取文章的各种数据
+  GetOrderList = 'article/getOrderList/', // 获取订单列表
+  BrochureBought = 'article/brochureBought/' // 获取购买记录
 }
 
 /**
@@ -227,6 +230,45 @@ export function hasPurchase(params: any) {
   return hyRequest.post<IDataType>({
     url: UserArticle.IsPurchase,
     data: params,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 获取文章的各种数据
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function getArticleData(id: any) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.GetArticleData + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 获取订单列表
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function getOrderList(id: any) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.GetOrderList + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 获取已购小册记录
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function brochureBought(id: any) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.BrochureBought + id,
     showLoading: false
   })
 }

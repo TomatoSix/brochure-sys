@@ -123,6 +123,14 @@ const routes: Array<RouteRecordRaw> = [
               )
           },
           {
+            path: 'homeRecord',
+            name: 'homeRecord',
+            component: () =>
+              import(
+                /* webpackChunkName: "about" */ '../views/main/homepage/components/home-record.vue'
+              )
+          },
+          {
             path: 'homeCollection',
             name: 'homeCollection',
             component: () =>
