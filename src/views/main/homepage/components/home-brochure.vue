@@ -1,7 +1,12 @@
 <template>
   <div class="brochure">
     <div v-if="brochure.length !== 0">
-      <div class="item" v-for="(item, index) in brochure" :key="index">
+      <div
+        class="item"
+        v-for="(item, index) in brochure"
+        :key="index"
+        @click="pushRouter(item)"
+      >
         <div class="author">
           <div class="name">{{ item.authorName }}</div>
           <div class="partition">|</div>
@@ -18,6 +23,7 @@
 </template>
 
 <script lang="ts">
+import router from '@/router'
 import { defineComponent, onMounted, ref } from 'vue'
 import { getBrochureByUserId } from '@/service/article/article'
 import { useStore } from 'vuex'
@@ -38,12 +44,24 @@ export default defineComponent({
         })
       })
     }
+    const pushRouter = function (item: any) {
+      console.log(item, 'item')
+
+      router.push({
+        name: 'brochureShow',
+        query: {
+          id: item.brochureId,
+          title: item.headline
+        }
+      })
+    }
     onMounted(() => {
       getData()
     })
     return {
       getData,
-      brochure
+      brochure,
+      pushRouter
     }
   }
 })

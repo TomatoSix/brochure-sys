@@ -1,5 +1,5 @@
 import hyRequest from '../index'
-
+import hyRequest2 from '../upload'
 import { IDataType, IPaper } from './types'
 
 enum UserArticle {
@@ -22,7 +22,13 @@ enum UserArticle {
   IsPurchase = 'article/isPurchase', // 购买小册
   GetArticleData = 'article/getArticleData/', // 获取文章的各种数据
   GetOrderList = 'article/getOrderList/', // 获取订单列表
-  BrochureBought = 'article/brochureBought/' // 获取购买记录
+  BrochureBought = 'article/brochureBought/', // 获取购买记录
+  Avatar = 'upload/avatar', // 上传头像
+
+  giveLike = 'article/giveLike', // 点赞
+  cancelLike = 'article/cancelLike', // 取消赞
+  isLike = 'article/isLike', // 是否赞
+  likeList = 'article/likeList/'
 }
 
 /**
@@ -269,6 +275,122 @@ export function getOrderList(id: any) {
 export function brochureBought(id: any) {
   return hyRequest.get<IDataType>({
     url: UserArticle.BrochureBought + id,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 上传头像
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function avatar(file: any) {
+  return hyRequest2.post<IDataType>({
+    url: UserArticle.Avatar,
+    data: file,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 新增评论
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function addComment(data: any) {
+  return hyRequest.post<IDataType>({
+    url: '/comment',
+    data: data,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 回复评论
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function replyComment(commentId: any, data: any) {
+  return hyRequest.post<IDataType>({
+    url: '/comment/' + commentId + '/reply',
+    data: data,
+    showLoading: false
+  })
+
+  /*
+  {
+    "articleId": "49",
+    "content": "正在学习nodejs",
+    "commentId": "1"
+  } */
+}
+
+/**
+ * @desc 获取评论列表
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function getComment(articleId: any) {
+  return hyRequest.get<IDataType>({
+    url: '/comment/' + articleId,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 点赞
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function giveLike(data: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.giveLike,
+    data: data,
+    showLoading: false
+  })
+}
+/**
+ * @desc 取消赞
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function cancelLike(data: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.cancelLike,
+    data: data,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 是否有赞
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function isLike(data: any) {
+  return hyRequest.post<IDataType>({
+    url: UserArticle.isLike,
+    data: data,
+    showLoading: false
+  })
+}
+
+/**
+ * @desc 获取点赞的文章列表
+ * @date 2022-05-05
+ * @param {any} params:any
+ * @returns {any}
+ */
+export function likeList(userId: any) {
+  return hyRequest.get<IDataType>({
+    url: UserArticle.likeList + userId,
     showLoading: false
   })
 }

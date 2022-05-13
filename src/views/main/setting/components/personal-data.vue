@@ -59,34 +59,36 @@
     <div class="right">
       <div class="portrait">
         <el-upload
-          class="uplaod"
-          action="setPersonData"
+          action="http://127.0.0.1:8000/upload/avatar"
           :show-file-list="false"
-          default="defaultUrl"
           :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload"
         >
-          <el-avatar shape="circle" :size="100" :src="personalData.portrait" />
+          <el-avatar :size="50" :src="personalData.portrait" />
+          <!-- <img :src="personalData.portrait" class="avatar" /> -->
         </el-upload>
-        <div class="explain">我的头像</div>
+        <div class="explain" @click="submit">我的头像</div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+// import axios from 'axios'
 import { defineComponent, onMounted, ref } from 'vue'
 import type { UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { useStore } from 'vuex'
 import { requestUserDataById, setPersonData } from '@/service/login/login'
+import { avatar } from '@/service/article/article'
+// import localCache from '@/utils/cache'
+
 export default defineComponent({
   setup() {
-    const defaultUrl = require('@/assets/portrait.png')
-    const imgUrl = ref('')
+    const imageUrl = ref('')
     const store = useStore()
     let personalData = ref({
-      user_id: store.state.login.userInfo.user_id,
-      id: '',
+      // user_id: store.state.login.userInfo.user_id,
       name: '',
       company: '',
       homepage: '',
@@ -94,13 +96,29 @@ export default defineComponent({
       portrait: '',
       position: ''
     })
-    // 图片上传
-    const handleAvatarSuccess: UploadProps['onSuccess'] = (
-      response,
-      uploadFile
-    ) => {
-      personalData.value.portrait = URL.createObjectURL(uploadFile.raw)
-    }
+
+    // const uploadFile = function (params: any) {
+    //   const formdata = new FormData()
+    //   const file = params.file
+    //   formdata.append('file', file)
+    //   axios
+    //     .post('http://127.0.0.1/upload/avatar', formdata, {
+    //       headers: {
+    //         //头部信息
+    //         'Content-Type': 'multipart/form-data',
+    //         Authorization: localCache.getCache('token')
+    //       }
+    //     })
+    //     .then((res) => {
+    //       console.log(res, 'res')
+    //     })
+    //     .catch((error) => {
+    //       console.log(error, 'error')
+    //     })
+    // }
+    // const submit = function () {
+    //   uploadFile()
+    // }
     // 获取图片数据
     const getData = function () {
       const id = store.state.login.userInfo.id
@@ -112,6 +130,23 @@ export default defineComponent({
     onMounted(() => {
       getData()
     })
+    const handleAvatarSuccess: UploadProps['onSuccess'] = (
+      response,
+      uploadFile
+    ) => {
+      console.log(response, uploadFile)
+    }
+
+    const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+      if (rawFile.type !== 'image/jpeg') {
+        ElMessage.error('Avatar picture must be JPG format!')
+        return false
+      } else if (rawFile.size / 1024 / 1024 > 2) {
+        ElMessage.error('Avatar picture size can not exceed 2MB!')
+        return false
+      }
+      return true
+    }
 
     // 保存修改
     const saveData = function () {
@@ -126,12 +161,13 @@ export default defineComponent({
       })
     }
     return {
-      defaultUrl,
-      imgUrl,
+      avatar,
+      imageUrl,
       saveData,
       getData,
       personalData,
-      handleAvatarSuccess
+      handleAvatarSuccess,
+      beforeAvatarUpload
     }
   }
 })
@@ -165,6 +201,8 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 200px;
+      height: 200px;
       .upload {
         cursor: pointer;
       }

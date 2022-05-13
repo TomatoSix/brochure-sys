@@ -39,7 +39,9 @@ import { defineComponent, reactive, ref } from 'vue'
 
 export default defineComponent({
   setup() {
-    const avatarUrl = require('@/assets/portrait.png')
+    const store = useStore()
+
+    const avatarUrl = store.state.login.userInfo.portrait
     let activeIndex = ref(0)
     const nav = reactive([
       {
@@ -58,10 +60,10 @@ export default defineComponent({
         name: 'homeRecord',
         label: '已购小册'
       },
-      {
-        name: 'homeCollection',
-        label: '收藏集'
-      },
+      // {
+      //   name: 'homeCollection',
+      //   label: '收藏集'
+      // },
       {
         name: 'homeLike',
         label: '赞过的'
@@ -71,7 +73,6 @@ export default defineComponent({
         label: '关注'
       }
     ])
-    const store = useStore()
     const name = store.state.login.userInfo.name
     // const dialogVisible = ref(false)
     const editInformation = function () {

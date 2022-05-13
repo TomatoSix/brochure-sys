@@ -34,6 +34,7 @@ import { getArticleAll } from '@/service/article/article'
 export default defineComponent({
   setup() {
     let articleData = ref([])
+
     const getArticleData = function () {
       getArticleAll().then((res) => {
         if (res.returnCode === '0000') {

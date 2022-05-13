@@ -35,15 +35,16 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { getChapterAllByBrochureId } from '@/service/article/article'
 import router from '@/router'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 export default defineComponent({
   setup() {
     const route = useRoute()
     const text = ref('')
-
+    const store = useStore()
     const brochureId = route.query.id
     const title = route.query.title
 
-    const circleUrl = require('@/assets/portrait.png')
+    const circleUrl = store.state.login.userInfo.portrait
     const chapter: any = ref([])
 
     const routerChange = function () {

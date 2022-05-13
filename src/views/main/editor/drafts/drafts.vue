@@ -30,7 +30,7 @@
             <el-menu-item index="orderData">订单数据</el-menu-item>
             <el-menu-item index="followData">关注者数据</el-menu-item>
           </el-sub-menu>
-          <el-menu-item index="3">
+          <!-- <el-menu-item index="3">
             <i class="iconfont icon-shouye"> </i>
 
             <span>活动中心</span>
@@ -39,7 +39,7 @@
             <i class="iconfont icon-bangzhu"> </i>
 
             <span>帮助中心</span>
-          </el-menu-item>
+          </el-menu-item> -->
         </el-menu>
       </div>
     </div>

@@ -29,7 +29,9 @@ export default defineComponent({
     const getData = function () {
       brochureBought(id).then((res) => {
         console.log(res.data, 'data44')
-        brochure.value = res.data
+        if (res.data !== '暂无购买记录') {
+          brochure.value = res.data
+        }
       })
     }
     const routerToBrochure = function (item: any) {

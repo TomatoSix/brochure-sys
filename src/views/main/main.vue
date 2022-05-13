@@ -62,9 +62,12 @@
 
 <script lang="ts">
 import router from '@/router'
+import { useStore } from 'vuex'
 import { defineComponent, reactive, ref } from 'vue'
+
 export default defineComponent({
   setup() {
+    const store = useStore()
     const isActive = ref('discover')
     const input = ref('')
     const module = reactive([
@@ -81,7 +84,7 @@ export default defineComponent({
         route: 'activity'
       }
     ])
-    const circleUrl = require('@/assets/portrait.png')
+    const circleUrl = store.state.login.userInfo.portrait
 
     const btnClick = function (name: string, index: number) {
       isActive.value = name

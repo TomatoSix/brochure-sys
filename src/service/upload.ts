@@ -4,7 +4,7 @@ import { BASE_URL, TIME_OUT } from './request/config'
 import localCache from '@/utils/cache'
 
 // 每一个axios实例可以对应不同的baseURL
-const hyRequest = new HYRequest({
+const hyRequest2 = new HYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   // 传入的hooks对应的是一个个拦截器, 不同的拦截器对应不同的作用
@@ -37,6 +37,9 @@ const hyRequest = new HYRequest({
 
       return err
     }
+  },
+  headers: {
+    'Content-Type': 'multipart/form-data'
   }
 })
 
@@ -51,4 +54,4 @@ const hyRequest = new HYRequest({
 //   baseURL: ''
 // })
 
-export default hyRequest
+export default hyRequest2
